@@ -3,34 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Заголовок страницы</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./styless.css">
+    <title>Image Finder</title>
     <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
-      integrity="sha512-ISS7cAi1PEhQ8jnbJpJZMd29NlhNj4AWYyLOSp2CE/CsHxTCu+r+t0D2yoJudVrd0/8fTVPUVDzY5Tvli75u/g=="
-      crossorigin="anonymous"
     />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
-  <body>
-    <button class="btn">Scroll Into View</button>
-    <form class="search-form" id="search-form">
-      <input
-        class="search-form-input"
-        type="text"
-        name="query"
-        autocomplete="off"
-        placeholder="Search images..."
-      />
-    </form>
 
-    <ul class="gallery">
-      <!-- Список <li> с карточками изображений -->
-    </ul>
-    <button class="load-more-btn is-hidden" type="button">Load more</button>
-    <button class="special" type="button">special</button>
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-    <!-- Скрипт идёт последним в разметке. В нём уже подключен главный SASS-файл. -->
+  <body>
+    <article class="intro">
+      <form class="search-form js-search-form" id="search-form">
+        <input
+          type="text"
+          name="query"
+          autocomplete="off"
+          placeholder="Search images..."
+          class="input-search"
+        />
+        <button type="submit" class="btn-submit">Serch</button>
+      </form>
+
+      <ul class="gallery js-gallery"></ul>
+
+      <button
+        type="button"
+        class="btn btn-primary button"
+        data-action="load-more"
+      >
+        <span
+          class="spinner-border spinner-border-sm spinner is-hidden"
+          role="status"
+          aria-hidden="true"
+        ></span>
+
+        <span class="label">Показать ещё</span>
+      </button>
+    </article>
     <script src="./index.js"></script>
   </body>
 </html>

@@ -1,41 +1,64 @@
 import './sass/main.scss';
-import galleryTmp from './templates/gallery.hbs';
-// import debounce from 'lodash.debounce';
-import ApiService from './apiService';
-const apiService = new ApiService();
-console.log('ApiService :>> ', apiService);
-// const debounce = require('lodash.debounce');
-// const Handlebars = require('handlebars');
-// const template = Handlebars.compile('Name: {{name}}');
-// console.log(template({ name: 'Nils' }));
+import NewsApiService from './js/apiService.js';
+import BtnLoadMore from './js/btnLoadMore.js';
+import imageCrd from './templates/image-card.hbs';
 
 const refs = {
-  input: document.querySelector('#search-form'),
-  gallery: document.querySelector('.gallery'),
-  btnLoad: document.querySelector('.load-more-btn'),
+  searchForm: document.querySelector('.js-search-form'),
+  articlesContainer: document.querySelector('.js-gallery'),
+  //   loadMoreBtn: document.querySelector('[data-action="load-more"]'),
 };
+const btnLoadMore = new BtnLoadMore({
+  selector: '[data-action="load-more"]',
+  hidden: true,
+});
+const newsApiService = new NewsApiService();
 
-function updateImagesMarkup(hits) {
-  const markup = galleryTmp(hits);
-  console.log(markup);
-  refs.gallery.insertAdjacentHTML('beforeend', markup);
+refs.searchForm.addEventListener('submit', onSearch);
+btnLoadMore.refs.button.addEventListener('click', onLoadMore);
+
+function onSearch(e) {
+  e.preventDefault();
+
+  clearArticleContainer();
+  newsApiService.query = e.currentTarget.elements.query.value;
+
+  if (newsApiService.query === '') {
+    return alert('Enter something valid');
+  }
+
+  btnLoadMore.show();
+  newsApiService.resetPage();
+  fetchArticles();
 }
 
-refs.input.addEventListener('submit', event => {
-  event.preventDefault();
+function onLoadMore() {
+  fetchArticles();
+  windowsScrolling();
+}
 
-  const form = event.currentTarget;
+function fetchArticles() {
+  btnLoadMore.disable();
+  newsApiService.fetchArticles().then(appendArticlesMarkup);
+  btnLoadMore.enable();
+}
 
-  apiService.query = form.elements.query.value;
-  refs.gallery.innerHTML = '';
-  form.reset();
+function appendArticlesMarkup(images) {
+  refs.articlesContainer.insertAdjacentHTML('beforeend', imageCrd(images.hits));
+}
 
-  apiService.resetPage();
-  apiService.fetchPicture().then(hits => {
-    updateImagesMarkup(hits);
-  });
-});
+function clearArticleContainer() {
+  refs.articlesContainer.innerHTML = '';
+}
 
-refs.btnLoad.addEventListener('click', () => {
-  apiService.fetchPicture().then(updateImagesMarkup);
-});
+function windowsScrolling() {
+  const totalScrollHeight = document.body.clientHeight;
+
+  setTimeout(() => {
+    window.scrollTo({
+      top: totalScrollHeight,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, 500);
+}
