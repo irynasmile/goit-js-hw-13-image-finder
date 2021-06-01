@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,8 +10,10 @@
       integrity="sha512-ISS7cAi1PEhQ8jnbJpJZMd29NlhNj4AWYyLOSp2CE/CsHxTCu+r+t0D2yoJudVrd0/8fTVPUVDzY5Tvli75u/g=="
       crossorigin="anonymous"
     />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
   <body>
+    <button class="btn">Scroll Into View</button>
     <form class="search-form" id="search-form">
       <input
         class="search-form-input"
@@ -25,11 +27,8 @@
     <ul class="gallery">
       <!-- Список <li> с карточками изображений -->
     </ul>
-
     <button class="load-more-btn is-hidden" type="button">Load more</button>
-
-    <include src="./partials/example.html"></include>
-
+    <button class="special" type="button">special</button>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <!-- Скрипт идёт последним в разметке. В нём уже подключен главный SASS-файл. -->
     <script src="./index.js"></script>

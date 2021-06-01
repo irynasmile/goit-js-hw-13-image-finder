@@ -1,28 +1,28 @@
 {{#each this}}
-  <li>
+  <li class='img-item'>
     <div class='photo-card'>
-      <img src={{webformatURL}} alt={{tags}} data-source={{largeImageURL}} />
+      <img src={{webformatURL}} data-source={{largeImageURL}} alt='' width='400px' height='250px' />
 
       <div class='stats'>
-        <p class='stats-item'>
+        <p class='stats__item'>
           <i class='material-icons'>
             thumb_up
           </i>
           {{likes}}
         </p>
-        <p class='stats-item'>
+        <p class='stats__item'>
           <i class='material-icons'>
             visibility
           </i>
           {{views}}
         </p>
-        <p class='stats-item'>
+        <p class='stats__item'>
           <i class='material-icons'>
             comment
           </i>
           {{comments}}
         </p>
-        <p class='stats-item'>
+        <p class='stats__item'>
           <i class='material-icons'>
             cloud_download
           </i>
